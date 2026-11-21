@@ -190,6 +190,12 @@ writeimage.sh -m -f /mnt/usb/image-PPC_M460EX-3.6.8010.img -L MFL1 -d /dev/mtd -
 ### 4. Patch `chad` (`s2m_root_fru_init`) for EMC OEM VPD/FRU Compatibility
 Before rebooting out of the recovery shell, mount the newly installed `ROOT_1` (`/dev/mtdblock6`) and `VAR` (`/dev/mtdblock9`) partitions and patch `/opt/tms/bin/chad` so `s2m_root_fru_init()` returns `0` (`li r3, 0`) instead of `err = 30` (`LIC FRU block cap not found`):
 
+The second patch, when mdc_get_binding_tbool returns 0 (because no license key is installed yet), execution falls straight into 0x1000afc8 and 0x1000b024 and sets both to 0 (Disabled)!
+
+Changing both of those li r10, 0 (0x39400000) instructions to li r10, 1 (0x39400001) sets both IB license and ETH license to Enabled (1) permanently!
+
+Apply the Two-Instruction Patch & Reboot Now
+
 ```bash
 mkdir -p /mnt/root1 /mnt/var
 mount -t jffs2 /dev/mtdblock6 /mnt/root1
@@ -204,6 +210,15 @@ cp -a /mnt/root1/opt/tms/bin/chad /mnt/var/tmp/chad.orig
   -ex "set *(unsigned int *)0x10021cf8 = 0x38600000" \
   -ex "x/3i 0x10021cf4" \
   /mnt/root1/opt/tms/bin/chad
+
+gdb --write -batch \
+  -ex "x/1wx 0x1000afc8" \
+  -ex "x/1wx 0x1000b024" \
+  -ex "set *(unsigned int *)0x1000afc8 = 0x39400001" \
+  -ex "set *(unsigned int *)0x1000b024 = 0x39400001" \
+  -ex "x/1i 0x1000afc8" \
+  -ex "x/1i 0x1000b024" \
+  /opt/tms/bin/chad
 
 sync
 umount /mnt/root1 /mnt/var
