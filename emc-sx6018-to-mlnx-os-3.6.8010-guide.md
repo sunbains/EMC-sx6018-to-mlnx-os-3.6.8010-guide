@@ -1,5 +1,8 @@
 # Converting an EMC OEM Mellanox SX6018 (`100-886-230-02`) to Standard MLNX-OS `3.6.8010`
 
+## Fetching the OS Image
+Download the OS image from NVIDIA's [archive](https://network.nvidia.com/support/firmware/lenovo-archive/) - click on "Switches" and search the page by OS version number.
+
 ## Overview & Hardware Verification
 - **Switch Model:** EMC OEM Mellanox SX6018 (`100-886-230-02` / `MSX6018F-2SFS` / `MSX6018-2BFS`)
 - **CPU / Architecture:** PowerPC 460EX (`PPC_M460EX`, 2 GB RAM, 16 MB NOR flash + 1 GiB Micron NAND flash)
@@ -226,6 +229,8 @@ run mlxlinux
    - **Username:** `admin`
    - **Password:** `admin`
 3. Enter privileged mode and verify the OS and SwitchX-2 ASIC firmware versions:
+
+It will ask you a few questions during first boot, hostname, IPV6, the answers are obvious.
 
 ```text
 enable
