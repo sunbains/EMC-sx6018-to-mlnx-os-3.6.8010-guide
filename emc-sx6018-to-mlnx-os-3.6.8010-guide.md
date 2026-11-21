@@ -194,7 +194,9 @@ The second patch, when mdc_get_binding_tbool returns 0 (because no license key i
 
 Changing both of those li r10, 0 (0x39400000) instructions to li r10, 1 (0x39400001) sets both IB license and ETH license to Enabled (1) permanently!
 
-Apply the Two-Instruction Patch & Reboot Now
+Apply the Two-Instruction Patch & Reboot. 
+
+I think the patch below can be done before preparing the USB too. That way it will work on all similar switches without this fiddling around.
 
 ```bash
 mkdir -p /mnt/root1 /mnt/var
@@ -226,4 +228,5 @@ umount /mnt/root1 /mnt/var
 *(Confirm that `gdb` prints `0x10021cf8 <s2m_root_fru_init+512>: li r3,0` before proceeding.)*
 
 ### 5. Reboot Back to U-Boot
+/mnt/root1/usr/sbin/reboot -f
 
