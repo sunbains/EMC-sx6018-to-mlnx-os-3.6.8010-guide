@@ -211,14 +211,14 @@ cp -a /mnt/root1/opt/tms/bin/chad /mnt/var/tmp/chad.orig
   -ex "x/3i 0x10021cf4" \
   /mnt/root1/opt/tms/bin/chad
 
-gdb --write -batch \
+/mnt/root1/usr/bin/gdb --write -batch \
   -ex "x/1wx 0x1000afc8" \
   -ex "x/1wx 0x1000b024" \
   -ex "set *(unsigned int *)0x1000afc8 = 0x39400001" \
   -ex "set *(unsigned int *)0x1000b024 = 0x39400001" \
   -ex "x/1i 0x1000afc8" \
   -ex "x/1i 0x1000b024" \
-  /opt/tms/bin/chad
+  /mnt/root1/opt/tms/bin/chad
 
 sync
 umount /mnt/root1 /mnt/var
