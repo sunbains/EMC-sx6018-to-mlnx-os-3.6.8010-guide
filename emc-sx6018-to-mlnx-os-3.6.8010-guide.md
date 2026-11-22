@@ -1,5 +1,7 @@
 # Converting an EMC OEM Mellanox SX6018 (100-886-230-02) to Standard MLNX-OS 3.6.8010
 
+[My advice is to look up this guide](https://docs.google.com/document/d/1SS0_70PSD5NZDxMy-B---4X1i_2WiLoe/edit), it is a more comprehensive guide, found it after I got my switch working. It covers a crucial step that is not documented here, the FW update.
+
 ## Fetching the OS Image
 Download the OS image from NVIDIA's archive — click on **"Switches"** and search the page by OS version number (`3.6.8010`).
 
